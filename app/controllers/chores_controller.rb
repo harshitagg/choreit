@@ -25,6 +25,13 @@ class ChoresController < ApplicationController
     end
   end
 
+  def show
+    @chores = Chore.all
+    respond_to do |format|
+      format.json { render json: @chores }
+    end
+  end
+
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def chore_params
