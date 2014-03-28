@@ -3,5 +3,5 @@ class Chore < ActiveRecord::Base
   validates :title, :presence => true
   validates :description, :presence => true
   validates :due_date, :presence => true
-  validates :is_done, :presence => true
+  validates :is_done, :inclusion => [true, false]
 end

@@ -2,21 +2,21 @@ class ChoresController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def create
-      chores = chore_params.collect { |chore| Chore.new(chore) }
-      all_chores_valid = true
-      chores.each do |chore|
-        unless chore.save
-          all_chores_valid = false
-        end
+    chores = chore_params.collect { |chore| Chore.new(chore) }
+    all_chores_valid = true
+    chores.each do |chore|
+      unless chore.save
+        all_chores_valid = false
       end
+    end
 
-      respond_to do |format|
-        if all_chores_valid
-          format.json { render nothing: :true, status: :created }
-        else
-          format.json { render nothing: :true, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if all_chores_valid
+        format.json { render nothing: :true, status: :created }
+      else
+        format.json { render nothing: :true, status: :unprocessable_entity }
       end
+    end
   end
 
   def update
