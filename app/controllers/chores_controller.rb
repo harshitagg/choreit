@@ -2,15 +2,21 @@ class ChoresController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def create
-    @chore = Chore.new(chore_params)
-
-    respond_to do |format|
-      if @chore.save
-        format.json { render nothing: :true, status: :created }
-      else
-        format.json { render nothing: :true, status: :unprocessable_entity }
+      chores = chore_params.collect { |chore| Chore.new(chore) }
+      all_chores_valid = true
+      chores.each do |chore|
+        unless chore.save
+          all_chores_valid = false
+        end
       end
-    end
+
+      respond_to do |format|
+        if all_chores_valid
+          format.json { render nothing: :true, status: :created }
+        else
+          format.json { render nothing: :true, status: :unprocessable_entity }
+        end
+      end
   end
 
   def update
@@ -35,6 +41,6 @@ class ChoresController < ApplicationController
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def chore_params
-    params.permit(:chore_id, :title, :description, :due_date, :is_done)
+    params['_json']
   end
 end
