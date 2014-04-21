@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328021134) do
+ActiveRecord::Schema.define(version: 20140421032412) do
 
   create_table "chores", force: true do |t|
     t.string   "chore_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140328021134) do
     t.boolean  "is_done"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "group_id"
   end
 
 end
